@@ -1,0 +1,27 @@
+version: '3'
+services:
+  dbos:
+    image: mysql:5.7
+    volumes:
+       - mysql_storage:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rscrewroot
+      MYSQL_USER: Raghvendra
+      MYSQL_PASSWORD: rscrew037
+      MYSQL_DATABASE: mydatabase
+
+
+  nextcloud:
+    image: WordPress:latest
+    restart: always
+    depends_on:
+      - dbos
+    ports:
+      - 3719:80
+    volumes:
+      - wp_storage:/var/www/html
+
+volumes:
+  mysql_storage:
+  wp_storage:
